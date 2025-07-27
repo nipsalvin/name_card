@@ -1,0 +1,151 @@
+/* Tooltip Styles */
+
+.tooltip {
+	position: relative;
+}
+
+.tooltip::after {
+	content: attr(data-tooltip);
+	position: absolute;
+	bottom: calc(100% + 12px);
+	left: 50%;
+	transform: translateX(-50%) translateY(5px);
+	background-color: rgba(49, 63, 71, 0.95);
+	color: #ffffff;
+	padding: 8px 12px;
+	border-radius: 4px;
+	font-size: 0.75em;
+	font-weight: 300;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	white-space: nowrap;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+	z-index: 1000;
+	pointer-events: none;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	min-width: max-content;
+}
+
+.tooltip::before {
+	content: '';
+	position: absolute;
+	bottom: calc(100% + 6px);
+	left: 50%;
+	transform: translateX(-50%);
+	border: 6px solid transparent;
+	border-top-color: rgba(49, 63, 71, 0.95);
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+	z-index: 1000;
+	pointer-events: none;
+}
+
+.tooltip:hover::after {
+	opacity: 1;
+	visibility: visible;
+	transform: translateX(-50%) translateY(0);
+}
+
+.tooltip:hover::before {
+	opacity: 1;
+	visibility: visible;
+	transform: translateX(-50%);
+}
+
+/* Ensure tooltips work well with the icon styling */
+ul.icons li a.tooltip {
+	overflow: visible;
+}
+
+/* Prevent tooltip overflow on edges */
+ul.icons li:first-child .tooltip::after {
+	left: 0;
+	transform: translateX(0) translateY(5px);
+}
+
+ul.icons li:first-child .tooltip::before {
+	left: 1em;
+	transform: translateX(0);
+}
+
+ul.icons li:first-child .tooltip:hover::after {
+	transform: translateX(0) translateY(0);
+}
+
+ul.icons li:first-child .tooltip:hover::before {
+	transform: translateX(0);
+}
+
+ul.icons li:last-child .tooltip::after {
+	right: 0;
+	left: auto;
+	transform: translateX(0) translateY(5px);
+}
+
+ul.icons li:last-child .tooltip::before {
+	right: 1em;
+	left: auto;
+	transform: translateX(0);
+}
+
+ul.icons li:last-child .tooltip:hover::after {
+	transform: translateX(0) translateY(0);
+}
+
+ul.icons li:last-child .tooltip:hover::before {
+	transform: translateX(0);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 480px) {
+	.tooltip::after {
+		font-size: 0.65em;
+		padding: 6px 8px;
+		bottom: calc(100% + 10px);
+	}
+
+	.tooltip::before {
+		bottom: calc(100% + 4px);
+		border-width: 5px;
+	}
+
+	/* Adjust edge positioning for mobile */
+	ul.icons li:first-child .tooltip::before,
+	ul.icons li:last-child .tooltip::before {
+		left: 50%;
+		right: auto;
+		transform: translateX(-50%);
+	}
+
+	ul.icons li:first-child .tooltip::after,
+	ul.icons li:last-child .tooltip::after {
+		left: 50%;
+		right: auto;
+		transform: translateX(-50%) translateY(5px);
+	}
+
+	ul.icons li:first-child .tooltip:hover::after,
+	ul.icons li:last-child .tooltip:hover::after {
+		transform: translateX(-50%) translateY(0);
+	}
+
+	ul.icons li:first-child .tooltip:hover::before,
+	ul.icons li:last-child .tooltip:hover::before {
+		transform: translateX(-50%);
+	}
+}
+
+/* Ensure tooltips don't interfere with the animated gradient */
+.tooltip::after,
+.tooltip::before {
+	backdrop-filter: blur(2px);
+	-webkit-backdrop-filter: blur(2px);
+}
+
+/* Additional spacing to prevent tooltip interference */
+ul.icons li {
+	position: relative;
+}
